@@ -93,6 +93,11 @@ const params = new URLSearchParams(window.location.search);
 const logo = getLogo(getLogoURL());
 const dimensions = getDimensions(logo);
 
+// Logo 75% kleiner machen
+const scaledWidth = Math.round(dimensions[0] * 0.25);
+const scaledHeight = Math.round(dimensions[1] * 0.25);
+logo.setAttribute("width", scaledWidth);
+logo.setAttribute("height", scaledHeight);
 const initialColor = params.get("initialColor") || "white";
 let randomizeColor = true;
 
