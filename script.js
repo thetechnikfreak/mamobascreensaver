@@ -60,7 +60,7 @@ function getLogo(url) {
     
     // if the request failed, return the default logo
     if (request.status != 200) {
-        return getLogo("/logos/default.svg");
+        return getLogo("/mamobascreensaver/logos/default.svg");
     }
     
     let image = parser.parseFromString(request.responseText, "text/html");
