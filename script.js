@@ -67,14 +67,14 @@ function getLogo(url) {
 
     // if the image is not an SVG, return the default logo
     if (image.querySelector("parsererror")) {
-        return getLogo("/logos/default.svg");
+        return getLogo("/mamobascreensaver/logos/default.svg");
     }
     
     image = image.querySelector("svg");
 
     // if the image is null, return the default logo
     if (image == null) {
-        return getLogo("/logos/default.svg");
+        return getLogo("/mamobascreensaver/logos/default.svg");
     }
     
     // filter any color attributes from the SVG
