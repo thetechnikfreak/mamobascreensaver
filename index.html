@@ -15,44 +15,71 @@
   </style>
 </head>
 <body>
-  <img id="logo" src="/mamobascreensaver/logos/1000018335.png" alt="mamoba">
+  <img id="logo" src="/mamobascreensaver/logos/1.png" alt="mamoba">
 
   <script>
-    // helper
     function randint(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    // Variablen
     const logo = document.getElementById("logo");
+    const totalLogos = 5; // Anzahl der PNGs
+    let currentLogo = 1;
 
-    // warten bis Bild geladen ist, damit wir Dimensionen kennen
     logo.onload = function () {
-      const width = logo.naturalWidth;
-      const height = logo.naturalHeight;
+      let width = logo.naturalWidth;
+      let height = logo.naturalHeight;
 
       let x = randint(1, window.innerWidth - width - 1);
       let y = randint(1, window.innerHeight - height - 1);
       let direction = [1, 1];
-      const speed = 2; // Geschwindigkeit
+      const speed = 2;
 
       logo.style.left = x + "px";
       logo.style.top = y + "px";
 
-      setInterval(() => {
+      function changeLogo() {
+        currentLogo++;
+        if (currentLogo > totalLogos) currentLogo = 1;
+        logo.src = `/mamobascreensaver/logos/${currentLogo}.png`;
+      }
+
+      function animate() {
         x += speed * direction[0];
         y += speed * direction[1];
 
-        // bounce an den Seiten
-        if (x <= 0) direction[0] = 1;
-        else if (x + width >= window.innerWidth) direction[0] = -1;
+        let bounced = false;
 
-        if (y <= 0) direction[1] = 1;
-        else if (y + height >= window.innerHeight) direction[1] = -1;
+        if (x <= 0) {
+          direction[0] = 1;
+          bounced = true;
+        } else if (x + width >= window.innerWidth) {
+          direction[0] = -1;
+          bounced = true;
+        }
+
+        if (y <= 0) {
+          direction[1] = 1;
+          bounced = true;
+        } else if (y + height >= window.innerHeight) {
+          direction[1] = -1;
+          bounced = true;
+        }
+
+        if (bounced) changeLogo();
 
         logo.style.left = x + "px";
         logo.style.top = y + "px";
-      }, 10);
+
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener("resize", () => {
+        width = logo.naturalWidth;
+        height = logo.naturalHeight;
+      });
+
+      animate();
     };
   </script>
 </body>
